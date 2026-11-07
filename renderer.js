@@ -100,7 +100,7 @@ async function beginSession() {
         app.source = createLiveSource(key, {
             allowTelemetry: telemetryOk,
             onValidation: (_code, hint) => setHint(hint || 'Signal weak — keep your face in view and steady.'),
-            onError: (_code, message) => setHint(`Measurement issue: ${message}. You can continue with the pacer.`),
+            onError: (_code, message) => setHint(`${message || 'Measurement issue'}. You can continue with the pacer.`),
         });
         app.sourceKind = 'live';
         els.banner.classList.add('hidden');

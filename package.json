@@ -13,6 +13,7 @@
     "build": "esbuild renderer.js --bundle --outfile=dist/renderer.bundle.js --platform=browser --format=iife --log-level=warning",
     "start": "npm run build && electron .",
     "test": "node --test tests/",
+    "harness": "node scripts/live-path-harness.js",
     "smoke": "npm run build && xvfb-run -a electron . --smoke",
     "dist:mac": "npm run build && electron-builder --mac --arm64",
     "dist:win": "npm run build && electron-builder --win --x64",

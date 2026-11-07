@@ -16,7 +16,11 @@ Built with Electron + `@smartspectra/node-sdk`. Entry for the
    what happens to the data. The camera turns on only after you press
    **Start session**, and a "camera on" indicator + Stop button stay visible.
 2. **Baseline (45 s).** Breathe normally. Calm Breath reads your breathing
-   rate and HRV (RMSSD) via SmartSpectra.
+   rate and HRV (RMSSD) via SmartSpectra. Samples below the SDK's documented
+   accuracy confidence floors (breathing rate >= 45, HRV >= 50) are dropped
+   before they reach the pacer or the score, and camera-position issues
+   surface as plain-language hints ("too dark", "move a little closer", ...)
+   mapped from the SDK's validation codes.
 3. **Adaptive pacer (90 s).** An animated circle paces your breath, starting
    at your measured rate and stepping down toward 6 br/min. The target only
    drops when your measured breathing follows it — the app never drags you
@@ -74,6 +78,16 @@ Headless UI smoke test (demo mode, no camera needed — Linux/macOS with Xvfb):
 npm run smoke
 ```
 
+Live-path offline harness (no camera, no API key, no native binding): builds
+real protobuf-encoded `Metrics` buffers with the SDK's own generated message
+classes and drives them through the exact decode → confidence-gate →
+extraction → smoother → adaptive-pacer → calm-score pipeline that live
+'metrics' events take. Verifies the live wiring contract end to end:
+
+```bash
+npm run harness
+```
+
 ## Repo layout
 
 ```
@@ -86,8 +100,11 @@ src/scoring.js        Calm-score formula (pure, unit-tested)
 src/session.js        Session state machine (pure, unit-tested)
 src/sim.js            Deterministic synthetic signal (tests + demo mode)
 src/metrics.js        Metric extraction + smoothing (pure, unit-tested)
-src/liveSource.js     SmartSpectra SDK adapter (renderer entry)
-tests/logic.test.js   Node test-runner suite (synthetic series only)
+src/liveSource.js     SmartSpectra SDK adapter (decode + confidence gating)
+src/validation.js     Validation/error code → hint maps, confidence floors
+scripts/live-path-harness.js  Offline live-path verification (protobuf fixtures)
+tests/logic.test.js   Node test-runner suite
+tests/validation.test.js     Hint-map + confidence-gate unit tests
 ```
 
 Scaffolded from the official
