@@ -1,0 +1,87 @@
+/* Calm Breath — styles */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #0e1116;
+  color: #e6e8ee;
+  font-family: -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+header { text-align: center; padding: 20px 16px 4px; }
+h1 { margin: 0; font-weight: 600; letter-spacing: 0.5px; }
+.tagline { color: #9aa1b2; margin: 6px 0 0; font-size: 14px; }
+.mode-banner {
+  display: inline-block; margin-top: 10px; padding: 4px 12px;
+  background: #3a2f16; color: #ffd66b; border: 1px solid #6b5a22;
+  border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.4px;
+}
+.mode-banner.hidden { display: none; }
+
+main { flex: 1; width: 100%; max-width: 900px; margin: 0 auto; padding: 12px 16px 24px; }
+.screen.hidden { display: none; }
+
+/* consent */
+h2 { font-weight: 600; margin: 8px 0 14px; }
+.consent-card {
+  background: #161a22; border: 1px solid #262c38; border-radius: 14px;
+  padding: 18px 20px;
+}
+.consent-list { list-style: none; margin: 0 0 12px; padding: 0; }
+.consent-list li { margin: 0 0 12px; line-height: 1.5; font-size: 14px; color: #c7ccd8; }
+.consent-list a { color: #8fb7ff; }
+.telemetry-opt { display: block; font-size: 13px; color: #aab1c0; margin: 10px 0 14px; }
+.consent-actions { display: flex; gap: 12px; }
+.fineprint { color: #7d8494; font-size: 12px; line-height: 1.5; margin: 12px 0 0; }
+
+button {
+  font: inherit; border-radius: 10px; padding: 10px 22px; cursor: pointer;
+  border: 1px solid transparent;
+}
+button.primary { background: #2f7d5b; color: #eafff4; }
+button.primary:hover { background: #35906a; }
+button.ghost { background: transparent; color: #aab3c2; border-color: #39414f; }
+button.ghost:hover { border-color: #59647a; color: #d6dbe6; }
+
+/* session */
+.session-grid { display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; }
+.pacer-col { text-align: center; }
+#pacer { max-width: 100%; height: auto; }
+.camera-status {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;
+  font-size: 12px; color: #9aa1b2; background: #161a22;
+  border: 1px solid #262c38; border-radius: 999px; padding: 4px 12px;
+}
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #e3635f; display: inline-block; }
+.dot.off { background: #565e6e; }
+.readout-col { padding-top: 12px; }
+.phase-label { text-transform: uppercase; letter-spacing: 2px; font-size: 12px; color: #8b93a5; }
+.countdown { font-size: 44px; font-weight: 300; margin: 4px 0 14px; color: #dfe4ee; }
+.readouts { display: grid; gap: 10px; margin: 0 0 14px; }
+.readouts > div {
+  background: #161a22; border: 1px solid #262c38; border-radius: 10px; padding: 10px 12px;
+}
+.readouts dt { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #8b93a5; }
+.readouts dd { margin: 2px 0 0; font-size: 22px; font-weight: 500; }
+.readouts dd .val { font-size: 22px; font-weight: 500; }
+.readouts .unit { font-size: 11px; color: #8b93a5; }
+.hint { font-size: 13px; color: #9aa1b2; min-height: 38px; line-height: 1.45; margin: 0 0 12px; }
+
+/* summary */
+.score-card { text-align: center; margin: 10px 0 18px; }
+.score-num { font-size: 72px; font-weight: 200; color: #bfe8d4; }
+.score-cap { text-transform: uppercase; letter-spacing: 3px; font-size: 12px; color: #8b93a5; }
+.compare { margin: 0 auto 14px; border-collapse: collapse; font-size: 14px; }
+.compare th, .compare td { padding: 8px 18px; text-align: center; }
+.compare th { color: #8b93a5; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.compare td:first-child { text-align: left; color: #c7ccd8; }
+.score-note { text-align: center; color: #c7ccd8; line-height: 1.5; max-width: 480px; margin: 0 auto 8px; }
+.disclaimer { text-align: center; color: #7d8494; font-size: 12px; margin: 0 0 16px; }
+.summary-actions { display: flex; gap: 12px; justify-content: center; }
+
+footer { text-align: center; padding: 14px 16px 20px; color: #565e6e; font-size: 11px; line-height: 1.5; }
+
+@media (max-width: 760px) {
+  .session-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'">
+<title>Calm Breath</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>Calm Breath</h1>
+  <p class="tagline">A 3-minute breathing pace that follows <em>your</em> breathing.</p>
+  <p id="mode-banner" class="mode-banner hidden">DEMO MODE — synthetic data, no camera is used.</p>
+</header>
+
+<main>
+  <!-- CONSENT -->
+  <section id="screen-consent" class="screen">
+    <h2>Before we begin</h2>
+    <div class="consent-card">
+      <ul class="consent-list">
+        <li><strong>What the camera measures.</strong> With your permission, Calm Breath uses your camera to estimate your breathing rate and heart-rate variability (the same kind of signal a pulse oximeter picks up, measured optically from tiny face movements and skin-tone changes). The SmartSpectra SDK processes video frames <strong>locally in this app</strong>.</li>
+        <li><strong>Nothing is stored.</strong> No video, images, or measurements are saved to disk, ever. Closing the window discards everything from the session. There are no accounts and no analytics in this app.</li>
+        <li><strong>SDK telemetry.</strong> The SmartSpectra SDK can send a small aggregate diagnostic summary (session duration, frame rate, SDK version — no video, no metric values, no identifiers) to Presage's servers. Calm Breath keeps this <strong>off by default</strong>; you can opt in below. See the <a href="https://smartspectra.presagetech.com/docs/telemetry-and-privacy">SDK Telemetry &amp; Privacy doc</a>.</li>
+        <li><strong>Not a medical device.</strong> Calm Breath is a wellness and relaxation demo. It does not diagnose, treat, or monitor any condition.</li>
+      </ul>
+      <label class="telemetry-opt"><input type="checkbox" id="telemetry-consent"> Send anonymous aggregate SDK diagnostics to Presage (optional, off by default)</label>
+      <div class="consent-actions">
+        <button id="btn-start" class="primary">Start session</button>
+        <button id="btn-decline" class="ghost">No thanks</button>
+      </div>
+      <p class="fineprint">The camera turns on only after you press Start, and only while a session runs. An indicator stays visible; Stop ends it immediately.</p>
+    </div>
+  </section>
+
+  <!-- DECLINE -->
+  <section id="screen-decline" class="screen hidden">
+    <h2>No problem</h2>
+    <p>Calm Breath only works with the camera. Nothing was recorded — nothing ever is.</p>
+    <button id="btn-back" class="ghost">Back</button>
+  </section>
+
+  <!-- SESSION -->
+  <section id="screen-session" class="screen hidden">
+    <div class="session-grid">
+      <div class="pacer-col">
+        <canvas id="pacer" width="420" height="420"></canvas>
+        <div id="camera-status" class="camera-status">
+          <span id="camera-dot" class="dot"></span><span id="camera-text">camera on</span>
+        </div>
+      </div>
+      <div class="readout-col">
+        <div class="phase-label" id="phase-label">Baseline</div>
+        <div class="countdown" id="countdown">45</div>
+        <dl class="readouts">
+          <div><dt>Your breathing</dt><dd><span class="val" id="readout-rate">—</span> <span class="unit">br/min</span></dd></div>
+          <div><dt>Pacer target</dt><dd><span class="val" id="readout-target">—</span> <span class="unit">br/min</span></dd></div>
+          <div><dt>HRV (RMSSD)</dt><dd><span class="val" id="readout-hrv">—</span> <span class="unit">ms</span></dd></div>
+        </dl>
+        <p class="hint" id="hint">Sit comfortably, face in view, shoulders loose.</p>
+        <button id="btn-stop" class="ghost">Stop session</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="screen-summary" class="screen hidden">
+    <h2>Session complete</h2>
+    <div class="score-card">
+      <div class="score-num" id="score-num">—</div>
+      <div class="score-cap">calm score</div>
+    </div>
+    <table class="compare">
+      <thead><tr><th></th><th>Before</th><th>After</th></tr></thead>
+      <tbody>
+        <tr><td>Breathing rate</td><td id="before-rate">—</td><td id="after-rate">—</td></tr>
+        <tr><td>HRV (RMSSD)</td><td id="before-hrv">—</td><td id="after-hrv">—</td></tr>
+      </tbody>
+    </table>
+    <p id="score-note" class="score-note"></p>
+    <p class="disclaimer">For relaxation only. Not a medical device and not a medical measurement.</p>
+    <div class="summary-actions">
+      <button id="btn-again" class="primary">Another session</button>
+      <button id="btn-done" class="ghost">Done — discard data</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Calm Breath — a wellness/relaxation demo built with the Presage SmartSpectra SDK.
+     Not a medical device. Session data lives only in memory and is discarded when you close the window.</p>
+</footer>
+
+<script src="dist/renderer.bundle.js"></script>
+</body>
+</html>
